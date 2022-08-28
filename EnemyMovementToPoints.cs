@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class EnemyMovementToPoints : MonoBehaviour
 {
-    // arrays for points to move to
-    // Coroutines for pauses.
+    // add in slight rotation for enemy - swaying side to side.
+    // possibly need to use quaternion look rotation.
 
     [SerializeField] private GameObject[] movePoints;
     [SerializeField] private float speed = 1.0f;
@@ -33,9 +33,7 @@ public class EnemyMovementToPoints : MonoBehaviour
         for (int i = 0; i < movePoints.Length; i++)
         {
             movePointItem = i;
-            Debug.Log(movePointItem);
-            float timeToWait = speed + waitTime;
-            yield return new WaitForSeconds(timeToWait);
+            yield return new WaitForSeconds(waitTime);
         }
         canMove = true;
         yield return null;
