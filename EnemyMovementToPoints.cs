@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class EnemyMovementToPoints : MonoBehaviour
 {
-    // add in slight rotation for enemy - swaying side to side.
-    // possibly need to use quaternion look rotation.
-
     [SerializeField] private GameObject[] movePoints;
     [SerializeField] private float speed = 1.0f;
     [SerializeField] private float waitTime = 1.0f;
-    private bool canMove = true;
+    [SerializeField] private float rotateSpeed = 90f;
+    [SerializeField] private bool canMove, canRotate;
+
+    //[SerializeField] private bool canRotate = true;
     private int movePointItem;
 
     private void Start()
@@ -19,12 +19,19 @@ public class EnemyMovementToPoints : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        MoveObj(movePointItem);
+        if (movePoints.Length > 0)
+        {
+            MoveObj(movePointItem);
+        }
 
         if (canMove)
         {
             StartCoroutine("Move");
             canMove = false;
+        }
+        if (canRotate)
+        {
+            transform.Rotate(Vector3.forward * rotateSpeed * Time.deltaTime);
         }
     }
 
