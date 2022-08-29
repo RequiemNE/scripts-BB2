@@ -6,8 +6,7 @@ public class EnemyMovementToPoints : MonoBehaviour
     [SerializeField] private GameObject[] movePoints;
     [SerializeField] private float speed = 1.0f;
     [SerializeField] private float waitTime = 1.0f;
-    [SerializeField] private float rotateSpeed = 90f;
-    [SerializeField] private bool canMove, canRotate;
+    [SerializeField] private bool canMove;
 
     //[SerializeField] private bool canRotate = true;
     private int movePointItem;
@@ -28,10 +27,6 @@ public class EnemyMovementToPoints : MonoBehaviour
         {
             StartCoroutine("Move");
             canMove = false;
-        }
-        if (canRotate)
-        {
-            transform.Rotate(Vector3.forward * rotateSpeed * Time.deltaTime);
         }
     }
 
