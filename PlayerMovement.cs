@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float jumpHeight = 10f;
-    [SerializeField] private const float MAXSPEED = 50;
+    [SerializeField] private float maxVelocity = 10;
     [SerializeField] private bool canMove;
     public int playerID = 0;
 
@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController charController;
     private Rigidbody rb;
     private Vector3 moveVector;
+    private Vector3 currentVelocity;
     private bool jump;
 
     private void Awake()
@@ -34,11 +35,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void ProcessInput()
     {
-        if (moveVector.x != 0.0f || moveVector.z != 0.0f)
+        currentVelocity = rb.velocity;
+        // Ensure both X and Y velocity is not more than 10 or less than -10
+        if (moveVector.x != 0.0f && currentVelocity.x < maxVelocity && currentVelocity.x > -maxVelocity
+            || moveVector.z != 0.0f && currentVelocity.z < maxVelocity && currentVelocity.z > -maxVelocity)
         {
             rb.AddForce(moveVector * moveSpeed * Time.deltaTime);
-            Vector3 vel = rb.velocity;
-            Debug.Log("Velocity is: " + vel);
         }
     }
 
@@ -48,4 +50,16 @@ public class PlayerMovement : MonoBehaviour
         moveVector.z = player.GetAxis("Move Vertical");
         jump = player.GetButtonDown("Jump");
     }
+
+    private void Jump()
+    {
+        // raycast below.
+        // if raycast not hitting floor
+        //      cantJump
+        // else
+        //      jump
+    }
+
+    // void StopMomentum
+    // on respawn stop all momentum.
 }

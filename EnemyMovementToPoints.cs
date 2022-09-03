@@ -11,10 +11,6 @@ public class EnemyMovementToPoints : MonoBehaviour
     //[SerializeField] private bool canRotate = true;
     private int movePointItem;
 
-    private void Start()
-    {
-    }
-
     // Update is called once per frame
     private void Update()
     {
