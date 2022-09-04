@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     // jump is used to as the variable assigned to Rewired Jump action.
     // canJump is the variable for game logic.
-    public bool jump, canJump;
+    private bool jump, canJump;
 
     private void Awake()
     {
@@ -49,7 +49,6 @@ public class PlayerMovement : MonoBehaviour
             canJump = true;
 
             Debug.DrawRay(transform.position, rayDir * hit.distance, Color.red);
-            //Debug.Log("Hit!");
         }
         else
         {
@@ -80,11 +79,22 @@ public class PlayerMovement : MonoBehaviour
         currentVelocity = rb.velocity;
         if (jump)
         {
-            Debug.Log("jump pressed.");
             rb.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
         }
     }
 
-    // void StopMomentum
-    //       on respawn stop all momentum.
+    public void StopMomentum()
+    {
+        canJump = false;
+        canMove = false;
+        rb.velocity = Vector3.zero;
+        StartCoroutine("EnableMovement");
+    }
+
+    private IEnumerator EnableMovement()
+    {
+        yield return new WaitForSeconds(3f);
+        canMove = true;
+        canJump = true;
+    }
 }

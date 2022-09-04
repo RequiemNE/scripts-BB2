@@ -8,7 +8,6 @@ public class EnemyMovementToPoints : MonoBehaviour
     [SerializeField] private float waitTime = 1.0f;
     [SerializeField] private bool canMove;
 
-    //[SerializeField] private bool canRotate = true;
     private int movePointItem;
 
     // Update is called once per frame
