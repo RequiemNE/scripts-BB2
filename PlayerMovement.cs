@@ -43,11 +43,12 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 0.8f))
+        Vector3 rayDir = Vector3.down;
+        if (Physics.Raycast(transform.position, rayDir, out hit, 0.8f))
         {
             canJump = true;
 
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.red);
+            Debug.DrawRay(transform.position, rayDir * hit.distance, Color.red);
             //Debug.Log("Hit!");
         }
         else
