@@ -15,7 +15,10 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private Vector3 moveVector;
     private Vector3 currentVelocity;
-    private bool jump;
+
+    // jump is used to as the variable assigned to Rewired Jump action.
+    // canJump is the variable for game logic.
+    public bool jump, canJump;
 
     private void Awake()
     {
@@ -30,6 +33,26 @@ public class PlayerMovement : MonoBehaviour
         {
             GetInput();
             ProcessInput();
+        }
+        if (canJump)
+        {
+            Jump();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 0.8f))
+        {
+            canJump = true;
+
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.red);
+            //Debug.Log("Hit!");
+        }
+        else
+        {
+            canJump = false;
         }
     }
 
@@ -53,13 +76,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        // raycast below.
-        // if raycast not hitting floor
-        //      cantJump
-        // else
-        //      jump
+        currentVelocity = rb.velocity;
+        if (jump)
+        {
+            Debug.Log("jump pressed.");
+            rb.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
+        }
     }
 
     // void StopMomentum
-    // on respawn stop all momentum.
+    //       on respawn stop all momentum.
 }
