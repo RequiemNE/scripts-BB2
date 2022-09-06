@@ -93,7 +93,10 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator EnableMovement()
     {
-        yield return new WaitForSeconds(3f);
+        // added first WaitForSec to zero velocity again after respawn from PlaterStatus.cs
+        yield return new WaitForSeconds(1f);
+        rb.velocity = Vector3.zero;
+        yield return new WaitForSeconds(2f);
         canMove = true;
         canJump = true;
     }

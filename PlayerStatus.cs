@@ -35,7 +35,7 @@ public class PlayerStatus : MonoBehaviour
         if (collision.collider.tag == "endlevel")
         {
             // load next level.
-            Debug.Log("Level end");
+            // WORKS
         }
     }
 
