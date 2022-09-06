@@ -28,6 +28,15 @@ public class PlayerStatus : MonoBehaviour
             playerMovement.StopMomentum();
             StartCoroutine("ResetPosition");
         }
+        if (collision.collider.tag == "checkpoint")
+        {
+            startPos = transform.position;
+        }
+        if (collision.collider.tag == "endlevel")
+        {
+            // load next level.
+            Debug.Log("Level end");
+        }
     }
 
     private IEnumerator ResetPosition()
