@@ -5,6 +5,7 @@ using UnityEngine;
 public class Camera : MonoBehaviour
 {
     [SerializeField] private GameObject player;
+    public bool enableCamera = true;
     private Vector3 offset;
 
     // Start is called before the first frame update
@@ -16,6 +17,9 @@ public class Camera : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        transform.position = player.transform.position + offset;
+        if (enableCamera)
+        {
+            transform.position = player.transform.position + offset;
+        }
     }
 }
