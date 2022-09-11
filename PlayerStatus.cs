@@ -19,11 +19,6 @@ public class PlayerStatus : MonoBehaviour
         aud = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.tag == "enemy")
@@ -48,11 +43,14 @@ public class PlayerStatus : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        aud.PlayOneShot(fallScream);
-        Camera camScript = cam.GetComponent<Camera>();
-        camScript.enableCamera = false;
-        playerMovement.StopMomentum();
-        StartCoroutine("ResetPosition");
+        if (gameObject.name == "kill box")
+        {
+            aud.PlayOneShot(fallScream);
+            Camera camScript = cam.GetComponent<Camera>();
+            camScript.enableCamera = false;
+            playerMovement.StopMomentum();
+            StartCoroutine("ResetPosition");
+        }
     }
 
     private IEnumerator ResetPosition()
