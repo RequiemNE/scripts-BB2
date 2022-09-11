@@ -9,24 +9,24 @@ public class EnemyFollow : MonoBehaviour
 
     private Vector3 startPos;
     private GameObject player;
+    private Rigidbody rb;
 
-    // Start is called before the first frame update
     private void Start()
     {
-        // get position
         startPos = transform.position;
+        rb = GetComponent<Rigidbody>();
         player = GameObject.FindGameObjectWithTag("player");
     }
 
-    // Update is called once per frame
-    private void Update()
+    private void FixedUpdate()
     {
         // if follow player = false
         // return to start pos
         if (followPlayer)
         {
             float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);
+            //transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);
+            rb.MovePosition(player.transform.position);
         }
     }
 }
