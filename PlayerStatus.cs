@@ -43,7 +43,7 @@ public class PlayerStatus : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (gameObject.name == "kill box")
+        if (other.gameObject.name == "kill box")
         {
             aud.PlayOneShot(fallScream);
             Camera camScript = cam.GetComponent<Camera>();

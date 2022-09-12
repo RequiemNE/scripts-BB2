@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
@@ -9,7 +7,6 @@ public class Checkpoint : MonoBehaviour
     private AudioSource ding;
     private bool checkpointHit = false;
 
-    // Start is called before the first frame update
     private void Start()
     {
         myColour = gameObject.GetComponent<Renderer>();
