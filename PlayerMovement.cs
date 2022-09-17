@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float jumpHeight = 10f;
     [SerializeField] private float maxVelocity = 10;
-    [SerializeField] private bool canMove;
+    public bool canMove;
     public int playerID = 0;
 
     private Player player;
