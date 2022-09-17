@@ -23,7 +23,6 @@ public class PlayerStatus : MonoBehaviour
     {
         if (collision.collider.tag == "enemy")
         {
-            // ADD SOUNDS
             aud.PlayOneShot(killedByEnemy);
             Camera camScript = cam.GetComponent<Camera>();
             camScript.enableCamera = false;

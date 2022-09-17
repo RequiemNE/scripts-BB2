@@ -23,11 +23,18 @@ public class EnemyFollow : MonoBehaviour
         // SLIGHT pause before moving back?
         if (followPlayer)
         {
+            StopCoroutine("MoveBackToStart");
             agent.destination = player.transform.position;
         }
-        else
+        else if (!followPlayer && transform.position != startPos)
         {
-            agent.destination = startPos;
+            StartCoroutine("MoveBackToStart");
         }
+    }
+
+    private IEnumerator MoveBackToStart()
+    {
+        yield return new WaitForSeconds(3f);
+        agent.destination = startPos;
     }
 }
