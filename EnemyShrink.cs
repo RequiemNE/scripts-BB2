@@ -6,8 +6,9 @@ public class EnemyShrink : MonoBehaviour
 {
     [SerializeField] private Vector3 shrinkAmount;
     [SerializeField] private float holdTime = 1f;
-    private bool shrink = true;
-    private bool expand = false;
+    public bool canChangeSize = true;
+    public bool shrink = false;
+    public bool expand = false;
 
     // Start is called before the first frame update
     private void Start()
@@ -17,36 +18,58 @@ public class EnemyShrink : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (shrink && transform.localScale.x > 0.01f)
+        if (canChangeSize)
         {
-            StartCoroutine("Shrink");
-            shrink = false;
+            StartCoroutine("ChangeSize");
         }
-        if (expand && transform.localScale.x < 0.01f)
+
+        if (shrink)
         {
-            StartCoroutine("Expand");
-            expand = false;
+            Shrink();
+        }
+
+        if (expand)
+        {
+            Expand();
         }
     }
 
-    private IEnumerator Shrink()
+    private void Shrink()
     {
-        yield return new WaitForSeconds(holdTime);
-
-        if (transform.localScale.x > 0.01f)
+        if (transform.localScale.x >= 0.01f)
         {
             transform.localScale -= shrinkAmount * Time.deltaTime;
         }
-        expand = true;
+        canChangeSize = true;
     }
 
-    private IEnumerator Expand()
+    private void Expand()
     {
-        yield return new WaitForSeconds(holdTime);
-        if (transform.localScale.x >= 0.01f)
+        if (transform.localScale.x <= 0.01f)
         {
             transform.localScale += shrinkAmount * Time.deltaTime;
         }
-        shrink = true;
+        canChangeSize = true;
+    }
+
+    private IEnumerator ChangeSize()
+    {
+        yield return new WaitForSeconds(holdTime);
+        Debug.Log("logic");
+        if (shrink)
+        {
+            expand = true;
+            shrink = false;
+        }
+        if (expand)
+        {
+            shrink = true;
+            expand = false;
+        }
+        if (!shrink && !expand)
+        {
+            shrink = true;
+        }
+        canChangeSize = false;
     }
 }
