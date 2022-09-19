@@ -50,6 +50,13 @@ public class PlayerStatus : MonoBehaviour
             playerMovement.StopMomentum();
             StartCoroutine("ResetPosition");
         }
+
+        if (other.gameObject.tag == "lerpCam")
+        {
+            Debug.Log("hit lerp");
+            Camera camScript = cam.GetComponent<Camera>();
+            camScript.LerpCamera();
+        }
     }
 
     private IEnumerator ResetPosition()

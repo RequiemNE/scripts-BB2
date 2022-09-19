@@ -51,10 +51,17 @@ public class EndLevel : MonoBehaviour
             AudioSource levelAud = GetComponent<AudioSource>();
             levelAud.PlayOneShot(levelEndJingle);
 
-            // move to next level.
-            // if last level go to main menu
+            StartCoroutine("LoadNextLevel");
 
             hasHitEnd = true;
         }
+    }
+
+    private IEnumerator LoadNextLevel()
+    {
+        yield return new WaitForSeconds(3f);
+
+        // load next level.
+        // if last level - go back to menu
     }
 }
