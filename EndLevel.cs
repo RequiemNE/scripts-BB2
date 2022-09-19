@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class EndLevel : MonoBehaviour
 {
     [SerializeField] private GameObject sceneInfo;
+    [SerializeField] private AudioClip levelEndJingle;
     [SerializeField] private GameObject player;
     [SerializeField] private Vector3 playerShrinkAmount;
     [SerializeField] private Image image;
@@ -15,6 +16,7 @@ public class EndLevel : MonoBehaviour
     private float reduce;
     private bool shrinkPlayer = false;
     private bool endLevel = false;
+    private bool hasHitEnd = false;
 
     private void Start()
     {
@@ -24,7 +26,6 @@ public class EndLevel : MonoBehaviour
         reduce = aud.volume;
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (shrinkPlayer && player.transform.localScale.x > 0.01)
@@ -35,20 +36,25 @@ public class EndLevel : MonoBehaviour
         if (endLevel)
         {
             image.CrossFadeAlpha(1f, fadeSpeed, false);
-
             aud.volume = Mathf.Lerp(reduce, 0f, Time.time / soundFadeSpeed);
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag == "player")
+        if (collision.collider.tag == "player" && !hasHitEnd)
         {
             shrinkPlayer = true;
             endLevel = true;
+            // Using second audio source from player below, as I lerp the volume of sceneInfo audio.
+            // This prevents both bits of audio from becoming quiter.
+            AudioSource levelAud = GetComponent<AudioSource>();
+            levelAud.PlayOneShot(levelEndJingle);
 
             // move to next level.
             // if last level go to main menu
+
+            hasHitEnd = true;
         }
     }
 }
