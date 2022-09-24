@@ -27,4 +27,16 @@ public class CamLerpTrigger : MonoBehaviour
             // lerpPoint.transform.rotation
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        // Make trigger collider a bit longer than area so player doesn't
+        // keep going in and out.
+
+        if (other.gameObject.name == "Player")
+        {
+            Camera camScript = myCam.GetComponent<Camera>();
+            camScript.ResetCamera();
+        }
+    }
 }

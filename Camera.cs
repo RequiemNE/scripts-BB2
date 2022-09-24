@@ -10,10 +10,12 @@ public class Camera : MonoBehaviour
     [SerializeField] private int flowSpeed;
     [SerializeField] private float flowTimerCheck = 5f;
     public bool enableCamera = true;
-    private bool lerpCamera = false;
     private Vector3 offset;
 
     // For Lerp Cam
+    private bool lerpCamera = false;
+
+    private bool resetCamera = false;
     private Vector3 beforeLerpPosition, toLerpTo;
 
     private Quaternion beforeLerpRotation, toRotateTo;
@@ -46,12 +48,23 @@ public class Camera : MonoBehaviour
             transform.rotation = Quaternion.Lerp(beforeLerpRotation, toRotateTo, lerpTimer / flowSpeed);
             lerpTimer += Time.deltaTime;
         }
+        if (resetCamera)
+        {
+            beforeLerpPosition = transform.position;
+            transform.position = Vector3.Lerp(toLerpTo, beforeLerpPosition, lerpTimer / flowSpeed);
+            transform.rotation = Quaternion.Lerp(toRotateTo, beforeLerpRotation, lerpTimer / flowSpeed);
+            lerpTimer += Time.deltaTime;
+            if (lerpTimer >= flowTimerCheck)
+            {
+                resetCamera = false;
+            }
+        }
     }
 
     private void FlowCamera()
     {
         PlayerMovement playerMov = player.GetComponent<PlayerMovement>();
-        if (flowTimer < flowTimerCheck)
+        if (flowTimer < flowTimerCheck && flowStartPos)
         {
             playerMov.canMove = false;
             enableCamera = false;
@@ -67,13 +80,18 @@ public class Camera : MonoBehaviour
 
     public void LerpCamera(Vector3 lerpPos, Quaternion lerpRotation)
     {
-        // lerp and qlerp to point.
-        // use trigger
         beforeLerpPosition = gameObject.transform.position;
         beforeLerpRotation = gameObject.transform.rotation;
         toLerpTo = lerpPos;
         toRotateTo = lerpRotation;
         lerpTimer = 0f;
         lerpCamera = true;
+    }
+
+    public void ResetCamera()
+    {
+        lerpCamera = false;
+        lerpTimer = 0f;
+        resetCamera = true;
     }
 }
