@@ -6,7 +6,6 @@ public class Camera : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject flowStartPos, flowEndPos;
-    [SerializeField] private GameObject lerpPoint;
     [SerializeField] private int flowSpeed;
     [SerializeField] private float flowTimerCheck = 5f;
     public bool enableCamera = true;
@@ -43,7 +42,6 @@ public class Camera : MonoBehaviour
         }
         if (lerpCamera)
         {
-            //enableCamera = false;
             transform.position = Vector3.Lerp(beforeLerpPosition, toLerpTo, lerpTimer / flowSpeed);
             transform.rotation = Quaternion.Lerp(beforeLerpRotation, toRotateTo, lerpTimer / flowSpeed);
             lerpTimer += Time.deltaTime;
@@ -78,10 +76,11 @@ public class Camera : MonoBehaviour
         }
     }
 
-    public void LerpCamera(Vector3 lerpPos, Quaternion lerpRotation)
+    public void LerpCamera(Vector3 lerpPos, Quaternion lerpRotation, int newFlowSpeed)
     {
         beforeLerpPosition = gameObject.transform.position;
         beforeLerpRotation = gameObject.transform.rotation;
+        flowSpeed = newFlowSpeed;
         toLerpTo = lerpPos;
         toRotateTo = lerpRotation;
         lerpTimer = 0f;
