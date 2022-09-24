@@ -16,7 +16,6 @@ public class CamLerpTrigger : MonoBehaviour
         {
             Camera camScript = myCam.GetComponent<Camera>();
             camScript.LerpCamera(lerpPoint.transform.position, lerpPoint.transform.rotation, newFlowSpeed);
-            // lerpPoint.transform.rotation
         }
     }
 

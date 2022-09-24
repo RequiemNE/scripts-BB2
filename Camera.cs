@@ -20,7 +20,6 @@ public class Camera : MonoBehaviour
     private Quaternion beforeLerpRotation, toRotateTo;
     private float flowTimer = 0f;
     private float lerpTimer = 0f;
-    private float xRotateAmount = 0f;
 
     // Start is called before the first frame update
     private void Start()
@@ -89,6 +88,9 @@ public class Camera : MonoBehaviour
 
     public void ResetCamera()
     {
+        // change FlowTimerCheck here, as it needs to stay at 5 at start for intro Lerp.
+        // Changing it here though helps with lerping the cam back to position.
+        flowTimerCheck = 3;
         lerpCamera = false;
         lerpTimer = 0f;
         resetCamera = true;
