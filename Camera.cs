@@ -12,10 +12,14 @@ public class Camera : MonoBehaviour
     public bool enableCamera = true;
     private bool lerpCamera = false;
     private Vector3 offset;
-    private Vector3 beforeLerpPosition;
-    private Vector3 beforeLerpRotation;
+
+    // For Lerp Cam
+    private Vector3 beforeLerpPosition, toLerpTo;
+
+    private Quaternion beforeLerpRotation, toRotateTo;
     private float flowTimer = 0f;
-    private float lerpTimer;
+    private float lerpTimer = 0f;
+    private float xRotateAmount = 0f;
 
     // Start is called before the first frame update
     private void Start()
@@ -37,7 +41,10 @@ public class Camera : MonoBehaviour
         }
         if (lerpCamera)
         {
-            transform.position = Vector3.Lerp(beforeLerpPosition, lerpPoint.transform.position, lerpTimer / flowSpeed);
+            //enableCamera = false;
+            transform.position = Vector3.Lerp(beforeLerpPosition, toLerpTo, lerpTimer / flowSpeed);
+            transform.rotation = Quaternion.Lerp(beforeLerpRotation, toRotateTo, lerpTimer / flowSpeed);
+            lerpTimer += Time.deltaTime;
         }
     }
 
@@ -58,11 +65,14 @@ public class Camera : MonoBehaviour
         }
     }
 
-    public void LerpCamera()
+    public void LerpCamera(Vector3 lerpPos, Quaternion lerpRotation)
     {
         // lerp and qlerp to point.
         // use trigger
-        beforeLerpPosition = transform.position;
+        beforeLerpPosition = gameObject.transform.position;
+        beforeLerpRotation = gameObject.transform.rotation;
+        toLerpTo = lerpPos;
+        toRotateTo = lerpRotation;
         lerpTimer = 0f;
         lerpCamera = true;
     }
