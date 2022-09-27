@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class EndLevel : MonoBehaviour
 {
     [SerializeField] private GameObject sceneInfo;
+    [SerializeField] private Scene nextScene;
     [SerializeField] private AudioClip levelEndJingle;
     [SerializeField] private GameObject player;
     [SerializeField] private Vector3 playerShrinkAmount;
@@ -61,7 +63,19 @@ public class EndLevel : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
 
-        // load next level.
-        // if last level - go back to menu
+        int sceneCount = SceneManager.sceneCountInBuildSettings;
+        int currentScene = 0;
+        SceneManager.GetSceneByBuildIndex(currentScene);
+        if (currentScene != sceneCount)
+        {
+            int nextScene = currentScene + 1;
+            SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Single);
+        }
+        if (currentScene == sceneCount)
+        {
+            Debug.Log("You win");
+            // load main menu?
+        }
+        // should alse have, if "classic" level 3, next scene should say, "you unlocked Minimal mode."
     }
 }

@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     {
         player = ReInput.players.GetPlayer(playerID);
         rb = GetComponent<Rigidbody>();
+        StartCoroutine("EnableMovement");
     }
 
     // Update is called once per frame
