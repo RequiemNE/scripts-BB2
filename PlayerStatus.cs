@@ -33,11 +33,6 @@ public class PlayerStatus : MonoBehaviour
         {
             startPos = transform.position;
         }
-        if (collision.collider.tag == "endlevel")
-        {
-            // load next level.
-            // WORKS
-        }
     }
 
     private void OnTriggerEnter(Collider other)
