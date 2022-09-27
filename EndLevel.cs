@@ -64,8 +64,8 @@ public class EndLevel : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         int sceneCount = SceneManager.sceneCountInBuildSettings;
-        int currentScene = 0;
-        SceneManager.GetSceneByBuildIndex(currentScene);
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        ;
         if (currentScene != sceneCount)
         {
             int nextScene = currentScene + 1;
