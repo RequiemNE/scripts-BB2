@@ -10,6 +10,7 @@ public class Camera : MonoBehaviour
     [SerializeField] private float flowTimerCheck = 5f;
     [SerializeField] private bool followPlayer = true;
     public bool enableCamera = true;
+    private bool canFlowCamera = true;
     private Vector3 offset;
 
     // For Lerp Cam
@@ -38,12 +39,10 @@ public class Camera : MonoBehaviour
         }
         else
         {
-            if (flowStartPos && flowEndPos)
+            if (canFlowCamera && flowStartPos && flowEndPos)
             {
                 FlowCamera();
             }
-            PlayerMovement playerMov = player.GetComponent<PlayerMovement>();
-            playerMov.canMove = true;
         }
         if (lerpCamera)
         {
@@ -78,6 +77,7 @@ public class Camera : MonoBehaviour
         {
             enableCamera = true;
             playerMov.canMove = true;
+            canFlowCamera = false;
         }
     }
 
