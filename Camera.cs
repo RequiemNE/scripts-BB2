@@ -8,6 +8,7 @@ public class Camera : MonoBehaviour
     [SerializeField] private GameObject flowStartPos, flowEndPos;
     [SerializeField] private int flowSpeed;
     [SerializeField] private float flowTimerCheck = 5f;
+    [SerializeField] private bool followPlayer = true;
     public bool enableCamera = true;
     private Vector3 offset;
 
@@ -31,13 +32,18 @@ public class Camera : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (enableCamera)
+        if (enableCamera && followPlayer)
         {
             transform.position = player.transform.position + offset;
         }
         else
         {
-            FlowCamera();
+            if (flowStartPos && flowEndPos)
+            {
+                FlowCamera();
+            }
+            PlayerMovement playerMov = player.GetComponent<PlayerMovement>();
+            playerMov.canMove = true;
         }
         if (lerpCamera)
         {

@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class EndLevel : MonoBehaviour
 {
     [SerializeField] private GameObject sceneInfo;
-    [SerializeField] private Scene nextScene;
     [SerializeField] private AudioClip levelEndJingle;
     [SerializeField] private GameObject player;
     [SerializeField] private Vector3 playerShrinkAmount;
@@ -63,7 +62,7 @@ public class EndLevel : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
 
-        int sceneCount = SceneManager.sceneCountInBuildSettings;
+        int sceneCount = SceneManager.sceneCountInBuildSettings - 1;
         int currentScene = SceneManager.GetActiveScene().buildIndex;
         ;
         if (currentScene != sceneCount)
