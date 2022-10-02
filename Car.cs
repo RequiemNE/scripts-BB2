@@ -11,6 +11,7 @@ public class Car : MonoBehaviour
     [SerializeField] private float speed = 10f;
     [SerializeField] private float maxRotation = 5f;
     private Vector3 moveVector;
+    public Transform target;
 
     // Start is called before the first frame update
     private void Start()
@@ -22,13 +23,19 @@ public class Car : MonoBehaviour
     private void Update()
     {
         moveVector.x = player.GetAxis("Move Horizontal");
-        transform.position += new Vector3(0, 0, speed) * Time.deltaTime;
+        //transform.position += new Vector3(0, 0, speed) * Time.deltaTime;
         // max rotation -5 to 5 on y
-
+        Debug.Log(moveVector.x);
         Vector3 currentRotation = gameObject.transform.rotation.eulerAngles;
+
         if (moveVector.x != 0.0f && currentRotation.y <= maxRotation && currentRotation.y >= -maxRotation)
         {
-            gameObject.transform.rotation = new Quaternion(0, moveVector.x, 0, 1);
+            gameObject.transform.Rotate(0, moveVector.x, 0, Space.World);
+        }
+        if (moveVector.x <= 0.0f && currentRotation.y > maxRotation)
+        {
+            float rotateBack = currentRotation.y - maxRotation;
+            gameObject.transform.Rotate(0, rotateBack, 0, Space.World);
         }
     }
 }
