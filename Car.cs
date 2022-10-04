@@ -18,6 +18,7 @@ public class Car : MonoBehaviour
     private Rigidbody rb;
     private float yPos;
     private float turnVector;
+    private float yAngle = 0f;
 
     // Start is called before the first frame update
     private void Start()
@@ -46,12 +47,16 @@ public class Car : MonoBehaviour
         {
             rb.AddForce(new Vector3(turnVector, 0, 0));
         }
+
+        // clamp right
         if (transform.position.x > turnClamp)
         {
             Debug.Log("went over clamp");
             float moveBack = transform.position.x - 0.2f;
             transform.position = new Vector3(turnClamp, yPos, 0);
         }
+
+        // clamp left
         if (transform.position.x < -turnClamp)
         {
             Debug.Log("went under clamp");
@@ -62,23 +67,32 @@ public class Car : MonoBehaviour
 
     private void Rotation()
     {
-        if (transform.rotation.y < maxRotation && transform.rotation.y > -maxRotation && moveVector.x != 0.0f)
+        if (transform.rotation.eulerAngles.y < maxRotation && transform.rotation.eulerAngles.y > -maxRotation && moveVector.x != 0.0f)
         {
             float newRot = moveVector.x * rotateSpeed;
+
             gameObject.transform.Rotate(new Vector3(0, newRot, 0), Space.World);
         }
 
-        if (moveVector.x == 0.0f && transform.rotation.y > 0)
+        // rotate clamp right
+        if (moveVector.x == 0.0f && transform.rotation.eulerAngles.y > 0)
         {
             float newRot = transform.rotation.y * -rotateSpeed * 2;
-            Debug.Log(newRot);
             gameObject.transform.Rotate(new Vector3(0, newRot, 0), Space.World);
         }
-        if (moveVector.x == 0.0f && transform.rotation.y < 0)
+
+        //rotate clamp left
+        if (moveVector.x == 0.0f && transform.rotation.eulerAngles.y < 0)
         {
             float newRot = transform.rotation.y * -rotateSpeed * 2;
-            Debug.Log(newRot);
             gameObject.transform.Rotate(new Vector3(0, newRot, 0), Space.World);
         }
+
+        //if (transform.position.y > maxRotation)
+        //{
+        //    Debug.Log("over rotated");
+        //    float newRot = maxRotation - 0.2f;
+        //    gameObject.transform.Rotate(new Vector3(0, newRot, 0), Space.World);
+        //}
     }
 }
