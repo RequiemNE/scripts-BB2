@@ -11,10 +11,13 @@ public class Car : MonoBehaviour
     [SerializeField] private float speed = 10f;
     [SerializeField] private float maxRotation = 5f;
     [SerializeField] private float turnSpeed = 5f;
+    [SerializeField] private float rotateSpeed = 5f;
     [SerializeField] private float turnClamp = 5f;
+    [SerializeField] private float rotateClamp = 5f;
     private Vector3 moveVector;
     private Rigidbody rb;
     private float yPos;
+    private float turnVector;
 
     // Start is called before the first frame update
     private void Start()
@@ -29,15 +32,16 @@ public class Car : MonoBehaviour
         moveVector.x = player.GetAxis("Move Horizontal");
         yPos = transform.position.y;
 
-        // REDO all of below. Start with side to side movement and add the rotation in later.
+        Movement();
 
+        Rotation();
+    }
+
+    private void Movement()
+    {
+        turnVector = moveVector.x * turnSpeed;
         //transform.position += new Vector3(0, 0, speed) * Time.deltaTime;
-        float turnVector = moveVector.x * turnSpeed;
 
-        //float clampX = Mathf.Clamp(transform.position.x, -turnClamp, turnClamp);
-        //Debug.Log(clampX);
-        // transform.position += new Vector3(turnVector, 0, 0) * Time.deltaTime;
-        //Debug.Log(transform.position.x);
         if (transform.position.x < turnClamp + 1 && transform.position.x > -turnClamp - 1 && moveVector.x != 0.0f)
         {
             rb.AddForce(new Vector3(turnVector, 0, 0));
@@ -53,6 +57,28 @@ public class Car : MonoBehaviour
             Debug.Log("went under clamp");
             float moveBack = transform.position.x + 0.2f;
             transform.position = new Vector3(-turnClamp, yPos, 0);
+        }
+    }
+
+    private void Rotation()
+    {
+        if (transform.rotation.y < maxRotation && transform.rotation.y > -maxRotation && moveVector.x != 0.0f)
+        {
+            float newRot = moveVector.x * rotateSpeed;
+            gameObject.transform.Rotate(new Vector3(0, newRot, 0), Space.World);
+        }
+
+        if (moveVector.x == 0.0f && transform.rotation.y > 0)
+        {
+            float newRot = transform.rotation.y * -rotateSpeed * 2;
+            Debug.Log(newRot);
+            gameObject.transform.Rotate(new Vector3(0, newRot, 0), Space.World);
+        }
+        if (moveVector.x == 0.0f && transform.rotation.y < 0)
+        {
+            float newRot = transform.rotation.y * -rotateSpeed * 2;
+            Debug.Log(newRot);
+            gameObject.transform.Rotate(new Vector3(0, newRot, 0), Space.World);
         }
     }
 }
