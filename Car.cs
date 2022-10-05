@@ -41,7 +41,7 @@ public class Car : MonoBehaviour
     private void Movement()
     {
         turnVector = moveVector.x * turnSpeed;
-        //transform.position += new Vector3(0, 0, speed) * Time.deltaTime;
+        transform.position += new Vector3(0, 0, speed) * Time.deltaTime;
 
         if (transform.position.x < turnClamp + 1 && transform.position.x > -turnClamp - 1 && moveVector.x != 0.0f)
         {
@@ -53,7 +53,7 @@ public class Car : MonoBehaviour
         {
             Debug.Log("went over clamp");
             float moveBack = transform.position.x - 0.2f;
-            transform.position = new Vector3(turnClamp, yPos, 0);
+            transform.position = new Vector3(turnClamp, yPos, transform.position.z);
         }
 
         // clamp left
@@ -61,38 +61,32 @@ public class Car : MonoBehaviour
         {
             Debug.Log("went under clamp");
             float moveBack = transform.position.x + 0.2f;
-            transform.position = new Vector3(-turnClamp, yPos, 0);
+            transform.position = new Vector3(-turnClamp, yPos, transform.position.z);
         }
     }
 
     private void Rotation()
     {
-        if (transform.rotation.eulerAngles.y < maxRotation && transform.rotation.eulerAngles.y > -maxRotation && moveVector.x != 0.0f)
+        // euler angles is only 0 - 360, so had to tweak the if statement.
+        if (transform.rotation.eulerAngles.y < maxRotation && moveVector.x != 0.0f ||
+            transform.rotation.eulerAngles.y > 359.9 - maxRotation && moveVector.x != 0.0f)
         {
             float newRot = moveVector.x * rotateSpeed;
-
             gameObject.transform.Rotate(new Vector3(0, newRot, 0), Space.World);
         }
 
         // rotate clamp right
         if (moveVector.x == 0.0f && transform.rotation.eulerAngles.y > 0)
         {
-            float newRot = transform.rotation.y * -rotateSpeed * 2;
+            float newRot = transform.rotation.y * -rotateSpeed * 4;
             gameObject.transform.Rotate(new Vector3(0, newRot, 0), Space.World);
         }
 
         //rotate clamp left
         if (moveVector.x == 0.0f && transform.rotation.eulerAngles.y < 0)
         {
-            float newRot = transform.rotation.y * -rotateSpeed * 2;
+            float newRot = transform.rotation.y * -rotateSpeed * 4;
             gameObject.transform.Rotate(new Vector3(0, newRot, 0), Space.World);
         }
-
-        //if (transform.position.y > maxRotation)
-        //{
-        //    Debug.Log("over rotated");
-        //    float newRot = maxRotation - 0.2f;
-        //    gameObject.transform.Rotate(new Vector3(0, newRot, 0), Space.World);
-        //}
     }
 }
