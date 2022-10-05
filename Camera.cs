@@ -9,6 +9,7 @@ public class Camera : MonoBehaviour
     [SerializeField] private int flowSpeed;
     [SerializeField] private float flowTimerCheck = 5f;
     [SerializeField] private bool followPlayer = true;
+    [SerializeField] private bool jeepLevel;
     public bool enableCamera = true;
     private bool canFlowCamera = true;
     private Vector3 offset;
@@ -35,7 +36,15 @@ public class Camera : MonoBehaviour
     {
         if (enableCamera && followPlayer)
         {
-            transform.position = player.transform.position + offset;
+            if (!jeepLevel)
+            {
+                transform.position = player.transform.position + offset;
+            }
+            else
+            {
+                float newOffset = player.transform.position.z + offset.z;
+                transform.position = new Vector3(transform.position.x, transform.position.y, newOffset);
+            }
         }
         else
         {
