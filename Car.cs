@@ -13,12 +13,10 @@ public class Car : MonoBehaviour
     [SerializeField] private float turnSpeed = 5f;
     [SerializeField] private float rotateSpeed = 5f;
     [SerializeField] private float turnClamp = 5f;
-    [SerializeField] private float rotateClamp = 5f;
     private Vector3 moveVector;
     private Rigidbody rb;
     private float yPos;
     private float turnVector;
-    private float yAngle = 0f;
 
     // Start is called before the first frame update
     private void Start()
@@ -51,7 +49,6 @@ public class Car : MonoBehaviour
         // clamp right
         if (transform.position.x > turnClamp)
         {
-            Debug.Log("went over clamp");
             float moveBack = transform.position.x - 0.2f;
             transform.position = new Vector3(turnClamp, yPos, transform.position.z);
         }
@@ -59,7 +56,6 @@ public class Car : MonoBehaviour
         // clamp left
         if (transform.position.x < -turnClamp)
         {
-            Debug.Log("went under clamp");
             float moveBack = transform.position.x + 0.2f;
             transform.position = new Vector3(-turnClamp, yPos, transform.position.z);
         }
