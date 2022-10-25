@@ -9,7 +9,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject startGame;
     [SerializeField] private GameObject levelSelect;
     [SerializeField] private GameObject quit;
-    [SerializeField] private GameObject[] levels;
+    [SerializeField] private GameObject backButton;
+    [SerializeField] private Button[] levels;
     [SerializeField] private Sprite[] lvlImageClear;
     [SerializeField] private Sprite[] lvlImageBlur;
     [SerializeField] private float startTime = 2f;
@@ -29,37 +30,51 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        // if levelSelect
-        // hide startGame and Quit.
-        // Show levels.
-
-        // if startGame.
-        // Load level1.
-
-        // if quit.
-        // quit.
-
         if (rootMenu)
         {
             startGame.SetActive(true);
             levelSelect.SetActive(true);
             quit.SetActive(true);
+            backButton.SetActive(false);
+            if (levels != null && levels.Length > 0)
+            {
+                foreach (Button i in levels)
+                {
+                    i.gameObject.SetActive(false);
+                }
+            }
         }
         if (!rootMenu)
         {
             startGame.SetActive(false);
             levelSelect.SetActive(false);
             quit.SetActive(false);
+            backButton.SetActive(true);
         }
 
         if (levelSelectMenu)
         {
-            if (levels != null && levels.Length > 0)
+            LevelSelectLogic();
+        }
+    }
+
+    private void LevelSelectLogic()
+    {
+        rootMenu = false;
+        if (levels != null && levels.Length > 0)
+        {
+            for (int i = 0; i < levels.Length; i++)
             {
-                foreach (GameObject i in levels)
-                {
-                    i.SetActive(true);
-                }
+                levels[i].gameObject.SetActive(true);
+                levels[i].image.sprite = lvlImageBlur[i];
+                /*
+                    if level complete
+                        unblur image
+                        can load level - start coroutine and pass int i
+                    if level not complete
+                        blur images
+                        cant load. Makes buzzer noise or something.
+                 */
             }
         }
     }
@@ -83,11 +98,23 @@ public class MainMenu : MonoBehaviour
         Application.Quit(0);
     }
 
+    public void BackButton()
+    {
+        levelSelectMenu = false;
+        rootMenu = true;
+    }
+
     // COROUTINES -------------------------------------------
 
     private IEnumerator StartCoroutine()
     {
         yield return new WaitForSeconds(startTime);
         SceneManager.LoadSceneAsync("Level-1", LoadSceneMode.Single);
+    }
+
+    private IEnumerator LoadLevel(int level)
+    {
+        yield return new WaitForSeconds(startTime);
+        SceneManager.LoadSceneAsync(level, LoadSceneMode.Single);
     }
 }
