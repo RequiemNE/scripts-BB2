@@ -64,6 +64,7 @@ public class EnemySpawns : MonoBehaviour
 
         int randomSpawn = Random.Range(0, 2);
         Debug.Log("spawn rand :" + randomSpawn);
-        Instantiate(enemy, spawnPoints[randomSpawn].transform);
+        GameObject rndSpawn = spawnPoints[randomSpawn];
+        Instantiate(enemy, rndSpawn.transform.position, rndSpawn.transform.rotation);
     }
 }
