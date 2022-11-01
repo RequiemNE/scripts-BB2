@@ -57,11 +57,13 @@ public class EnemySpawns : MonoBehaviour
     {
         Debug.Log("in countdown");
         float timer = countdown;
-        //while (timer != 0f)
-        //{
-        //   timer -= Time.deltaTime;
-        //}
-
+        Debug.Log(timer);
+        while (timer > 0)
+        {
+            // if is only running once, not continously decreasing.
+            timer -= Time.deltaTime;
+            Debug.Log(timer); // about 250 0.02 deltaTime messages in 0.01 seconds.
+        }
         int randomSpawn = Random.Range(0, 2);
         Debug.Log("spawn rand :" + randomSpawn);
         GameObject rndSpawn = spawnPoints[randomSpawn];
