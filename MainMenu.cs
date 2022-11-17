@@ -63,19 +63,26 @@ public class MainMenu : MonoBehaviour
         rootMenu = false;
         if (levels != null && levels.Length > 0)
         {
-            for (int i = 0; i < levels.Length; i++)
-            {
-                levels[i].gameObject.SetActive(true);
-                levels[i].image.sprite = lvlImageBlur[i];
-                /*
-                    if level complete
-                        unblur image
-                        can load level - start coroutine and pass int i
-                    if level not complete
-                        blur images
-                        cant load. Makes buzzer noise or something.
-                 */
-            }
+            CheckLevel();
+        }
+    }
+
+    private void CheckLevel()
+    {
+        SaveGame saveGame = gameObject.GetComponent<SaveGame>();
+
+        for (int i = 0; i < levels.Length; i++)
+        {
+            levels[i].gameObject.SetActive(true);
+            levels[i].image.sprite = lvlImageBlur[i];
+            /*
+                if level complete
+                    unblur image
+                    can load level - start coroutine and pass int i
+                if level not complete
+                    blur images
+                    cant load. Makes buzzer noise or something.
+             */
         }
     }
 
