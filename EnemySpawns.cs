@@ -26,7 +26,7 @@ public class EnemySpawns : MonoBehaviour
     {
         spawnEnemy = false;
         Debug.Log("in TimerChoice");
-        float randomChoice = Random.Range(0, 2);
+        float randomChoice = Random.Range(0, 3);
         Debug.Log("Timer rand :" + randomChoice);
 
         switch (randomChoice)
