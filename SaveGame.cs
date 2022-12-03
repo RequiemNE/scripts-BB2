@@ -23,6 +23,7 @@ public class SaveGame : MonoBehaviour
         {
             string fileContents = File.ReadAllText(saveFile);
             levels = JsonUtility.FromJson<Levels>(fileContents);
+            Debug.Log(levels.l1 + " " + levels.l2);
         }
     }
 

@@ -51,7 +51,7 @@ public class EndLevel : MonoBehaviour
             // This prevents both bits of audio from becoming quiter.
             AudioSource levelAud = GetComponent<AudioSource>();
             levelAud.PlayOneShot(levelEndJingle);
-
+            SaveProgress();
             StartCoroutine("LoadNextLevel");
 
             hasHitEnd = true;
@@ -65,29 +65,29 @@ public class EndLevel : MonoBehaviour
         int sceneInt = 0;
         switch (sceneName)
         {
-            case "level-1":
+            case "Level-1":
                 sceneInt = 1;
                 break;
 
-            case "level-2":
+            case "Level-2":
                 sceneInt = 2;
                 break;
 
-            case "level-3":
+            case "Level-3":
                 sceneInt = 3;
                 break;
 
-            case "level-4":
+            case "Level-4":
                 sceneInt = 4;
                 break;
 
-            case "level-5":
+            case "Level-5":
                 sceneInt = 5;
                 break;
 
             default:
                 Debug.Log("Level option out of scope. Level name: " + sceneName +
-                    " is not level-1 to level-5.");
+                    " is not Level-1 to Level-5.");
                 break;
         }
         if (sceneInt >= 1 && sceneInt <= 5)
@@ -95,6 +95,8 @@ public class EndLevel : MonoBehaviour
             saveGame.Save(sceneInt);
         }
     }
+
+    // ---------- COROUTINES
 
     private IEnumerator LoadNextLevel()
     {
