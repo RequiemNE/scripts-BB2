@@ -113,8 +113,7 @@ public class EndLevel : MonoBehaviour
         if (currentScene == sceneCount)
         {
             Debug.Log("You win");
-            // load main menu?
+            SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
         }
-        // should alse have, if "classic" level 3, next scene should say, "you unlocked Minimal mode."
     }
 }
