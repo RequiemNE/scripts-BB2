@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,6 +18,9 @@ public class MainMenu : MonoBehaviour
 
     private bool rootMenu = true;
     private bool levelSelectMenu = false;
+    private bool[] lvlArr = new bool[5];
+
+    private SavedLevels savedLevels = new SavedLevels();
 
     // Start is called before the first frame update
     private void Start()
@@ -69,12 +73,15 @@ public class MainMenu : MonoBehaviour
 
     private void CheckLevel()
     {
-        SaveGame saveGame = gameObject.GetComponent<SaveGame>();
-
+        CompareLevels();
         for (int i = 0; i < levels.Length; i++)
         {
             levels[i].gameObject.SetActive(true);
             levels[i].image.sprite = lvlImageBlur[i];
+            if (lvlArr[i] == true)
+            {
+                levels[i].image.sprite = lvlImageClear[i];
+            }
             /*
                 if level complete
                     unblur image
@@ -83,6 +90,36 @@ public class MainMenu : MonoBehaviour
                     blur images
                     cant load. Makes buzzer noise or something.
              */
+        }
+    }
+
+    private void CompareLevels()
+    {
+        SaveGame saveGame = gameObject.GetComponent<SaveGame>();
+        string saveFile = Application.persistentDataPath + "/SaveLevels.json";
+        string fileContents = File.ReadAllText(saveFile);
+        savedLevels = JsonUtility.FromJson<SavedLevels>(fileContents);
+
+        // Quite a horrid bit of code, but it does the job.
+        if (savedLevels.l1 == true)
+        {
+            lvlArr[0] = true;
+        }
+        if (savedLevels.l2 == true)
+        {
+            lvlArr[1] = true;
+        }
+        if (savedLevels.l3 == true)
+        {
+            lvlArr[2] = true;
+        }
+        if (savedLevels.l4 == true)
+        {
+            lvlArr[3] = true;
+        }
+        if (savedLevels.l5 == true)
+        {
+            lvlArr[4] = true;
         }
     }
 
@@ -124,4 +161,14 @@ public class MainMenu : MonoBehaviour
         yield return new WaitForSeconds(startTime);
         SceneManager.LoadSceneAsync(level, LoadSceneMode.Single);
     }
+}
+
+[System.Serializable]
+public class SavedLevels
+{
+    public bool l1;
+    public bool l2;
+    public bool l3;
+    public bool l4;
+    public bool l5;
 }
