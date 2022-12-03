@@ -82,21 +82,19 @@ public class MainMenu : MonoBehaviour
             {
                 levels[i].image.sprite = lvlImageClear[i];
             }
-            /*
-                if level complete
-                    unblur image
-                    can load level - start coroutine and pass int i
-                if level not complete
-                    blur images
-                    cant load. Makes buzzer noise or something.
-             */
         }
     }
 
     private void CompareLevels()
     {
         SaveGame saveGame = gameObject.GetComponent<SaveGame>();
+
         string saveFile = Application.persistentDataPath + "/SaveLevels.json";
+        // break out of function if file doesn't exist.
+        if (!File.Exists(saveFile))
+        {
+            return;
+        }
         string fileContents = File.ReadAllText(saveFile);
         savedLevels = JsonUtility.FromJson<SavedLevels>(fileContents);
 
@@ -162,6 +160,8 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadSceneAsync(level, LoadSceneMode.Single);
     }
 }
+
+// NEW CLASSES -------------------------------------------
 
 [System.Serializable]
 public class SavedLevels
