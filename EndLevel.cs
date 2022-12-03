@@ -58,13 +58,51 @@ public class EndLevel : MonoBehaviour
         }
     }
 
+    private void SaveProgress()
+    {
+        SaveGame saveGame = gameObject.GetComponent<SaveGame>();
+        string sceneName = SceneManager.GetActiveScene().name;
+        int sceneInt = 0;
+        switch (sceneName)
+        {
+            case "level-1":
+                sceneInt = 1;
+                break;
+
+            case "level-2":
+                sceneInt = 2;
+                break;
+
+            case "level-3":
+                sceneInt = 3;
+                break;
+
+            case "level-4":
+                sceneInt = 4;
+                break;
+
+            case "level-5":
+                sceneInt = 5;
+                break;
+
+            default:
+                Debug.Log("Level option out of scope. Level name: " + sceneName +
+                    " is not level-1 to level-5.");
+                break;
+        }
+        if (sceneInt >= 1 && sceneInt <= 5)
+        {
+            saveGame.Save(sceneInt);
+        }
+    }
+
     private IEnumerator LoadNextLevel()
     {
         yield return new WaitForSeconds(3f);
 
         int sceneCount = SceneManager.sceneCountInBuildSettings - 1;
         int currentScene = SceneManager.GetActiveScene().buildIndex;
-        ;
+
         if (currentScene != sceneCount)
         {
             int nextScene = currentScene + 1;

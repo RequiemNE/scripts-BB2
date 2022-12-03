@@ -22,18 +22,61 @@ public class SaveGame : MonoBehaviour
         if (File.Exists(saveFile))
         {
             string fileContents = File.ReadAllText(saveFile);
-            // work with json file.
+            levels = JsonUtility.FromJson<Levels>(fileContents);
         }
     }
 
     public void WriteFile()
     {
+        string jsonString = JsonUtility.ToJson(levels);
         File.WriteAllText(saveFile, jsonString);
+    }
+
+    public void Save(int levelNumber)
+    {
+        ReadFile();
+
+        switch (levelNumber)
+        {
+            case 1:
+                levels.l1 = true;
+                break;
+
+            case 2:
+                levels.l2 = true;
+                break;
+
+            case 3:
+                levels.l3 = true;
+                break;
+
+            case 4:
+                levels.l4 = true;
+                break;
+
+            case 5:
+                levels.l5 = true;
+                break;
+
+            default:
+                Debug.Log("Level not recognised. Level " + levelNumber +
+           "was submitted to Save function in SaveGame.cs");
+                break;
+        }
+
+        WriteFile();
+
+        //Debug.Log("Level not recognised. Level " + levelNumber +
+        //   "was submitted to Save function in SaveGame.cs");
     }
 }
 
 [System.Serializable]
 public class Levels
 {
-    public bool level;
+    public bool l1;
+    public bool l2;
+    public bool l3;
+    public bool l4;
+    public bool l5;
 }
