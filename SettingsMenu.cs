@@ -16,6 +16,8 @@ public class SettingsMenu : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        // generate a list and loop through all available resolutions until players screen resolution.
+        // then add to list.
         resolutionDropdown.ClearOptions();
         List<string> options = new List<string>();
         resolutions = Screen.resolutions;
@@ -31,6 +33,11 @@ public class SettingsMenu : MonoBehaviour
                 currentResolutionIndex = i;
             }
         }
+
+        // Add all resoltuions to drop down. Load any saved settings.
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.RefreshShownValue();
+        LoadSettings(currentResolutionIndex);
     }
 
     public void SetVolume(float volume)
