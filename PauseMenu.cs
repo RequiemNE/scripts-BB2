@@ -36,6 +36,11 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    private void MainMenu()
+    {
+        // load main menu
+    }
+
     private void Settings()
     {
         // root false
