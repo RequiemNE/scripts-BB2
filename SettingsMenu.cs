@@ -66,7 +66,7 @@ public class SettingsMenu : MonoBehaviour
         }
         else
         {
-            volumeSlider.value = volumeSlider.maxValue / 2;
+            volumeSlider.value = 0;
         }
         if (PlayerPrefs.HasKey("ResolutionPreference"))
         {
