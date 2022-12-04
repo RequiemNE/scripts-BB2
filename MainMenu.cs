@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -27,11 +28,8 @@ public class MainMenu : MonoBehaviour
     {
         // get rewired and be able to use. up/down for nav. Jump for go.
         // maybe make new profile for menu.
-
-        // check save data. If not completed blur level image.
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (rootMenu)
@@ -146,6 +144,12 @@ public class MainMenu : MonoBehaviour
         rootMenu = true;
     }
 
+    public void LaunchLevel(Button button)
+    {
+        Debug.Log(button.name);
+        StartCoroutine(LoadLevel(button.name));
+    }
+
     // COROUTINES -------------------------------------------
 
     private IEnumerator StartCoroutine()
@@ -154,7 +158,7 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadSceneAsync("Level-1", LoadSceneMode.Single);
     }
 
-    private IEnumerator LoadLevel(int level)
+    private IEnumerator LoadLevel(string level)
     {
         yield return new WaitForSeconds(startTime);
         SceneManager.LoadSceneAsync(level, LoadSceneMode.Single);
