@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject startGame;
     [SerializeField] private GameObject levelSelect;
     [SerializeField] private GameObject quit;
+    [SerializeField] private GameObject clearData;
     [SerializeField] private GameObject backButton;
     [SerializeField] private Button[] levels;
     [SerializeField] private Sprite[] lvlImageClear;
@@ -37,6 +38,7 @@ public class MainMenu : MonoBehaviour
             startGame.SetActive(true);
             levelSelect.SetActive(true);
             quit.SetActive(true);
+            clearData.SetActive(true);
             backButton.SetActive(false);
             if (levels != null && levels.Length > 0)
             {
@@ -51,6 +53,7 @@ public class MainMenu : MonoBehaviour
             startGame.SetActive(false);
             levelSelect.SetActive(false);
             quit.SetActive(false);
+            clearData.SetActive(false);
             backButton.SetActive(true);
         }
 
@@ -148,6 +151,12 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log(button.name);
         StartCoroutine(LoadLevel(button.name));
+    }
+
+    public void ClearSave()
+    {
+        // AYS y/n
+        // clear save from script.
     }
 
     // COROUTINES -------------------------------------------
