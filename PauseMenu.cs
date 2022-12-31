@@ -54,6 +54,8 @@ public class PauseMenu : MonoBehaviour
         if (pause)
         {
             Debug.Log("pause");
+            Time.timeScale = 0;
+            Cursor.visible = true;
             // stop player and enemies.
             // load menu
             // settings false.
@@ -68,6 +70,8 @@ public class PauseMenu : MonoBehaviour
         }
         else
         {
+            Time.timeScale = 1;
+            Cursor.visible = false;
             resumeButton.SetActive(false);
             settingsButton.SetActive(false);
             mainMenuButton.SetActive(false);

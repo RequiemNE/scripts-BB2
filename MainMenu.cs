@@ -32,6 +32,7 @@ public class MainMenu : MonoBehaviour
         // get rewired and be able to use. up/down for nav. Jump for go.
         // maybe make new profile for menu.
         audioS = GetComponent<AudioSource>();
+        Cursor.visible = true;
     }
 
     private void Update()
