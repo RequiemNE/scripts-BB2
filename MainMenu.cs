@@ -149,8 +149,16 @@ public class MainMenu : MonoBehaviour
 
     public void LaunchLevel(Button button)
     {
-        Debug.Log(button.name);
-        StartCoroutine(LoadLevel(button.name));
+        // If level image is using colour version, then can play level.
+        string imageName = button.image.sprite.name.ToString();
+        if (imageName.Contains("colour"))
+        {
+            StartCoroutine(LoadLevel(button.name));
+        }
+        else
+        {
+            // can't play
+        }
     }
 
     public void ClearSave()
@@ -186,16 +194,4 @@ public class SavedLevels
     public bool l3;
     public bool l4;
     public bool l5;
-}
-
-public class Level
-{
-    public Level(string name, bool completed)
-    {
-        Name = name;
-        Completed = completed;
-    }
-
-    public string Name { get; set; }
-    public bool Completed { get; set; }
 }
