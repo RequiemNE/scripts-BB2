@@ -176,3 +176,15 @@ public class SavedLevels
     public bool l4;
     public bool l5;
 }
+
+public class Level
+{
+    public Level(string name, bool completed)
+    {
+        Name = name;
+        Completed = completed;
+    }
+
+    public string Name { get; set; }
+    public bool Completed { get; set; }
+}

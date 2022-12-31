@@ -70,6 +70,18 @@ public class SaveGame : MonoBehaviour
         //Debug.Log("Level not recognised. Level " + levelNumber +
         //   "was submitted to Save function in SaveGame.cs");
     }
+
+    public void ClearSave()
+    {
+        ReadFile();
+
+        levels.l1 = false;
+        levels.l2 = false;
+        levels.l3 = false;
+        levels.l4 = false;
+
+        WriteFile();
+    }
 }
 
 [System.Serializable]
