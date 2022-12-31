@@ -141,7 +141,6 @@ public class MainMenu : MonoBehaviour
 
     public void Quit()
     {
-        Debug.Log("Pressed quit");
         Application.Quit(0);
     }
 
@@ -161,8 +160,6 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
-            // can't play
-            Debug.Log("cant play");
             audioS.PlayOneShot(cantSound);
         }
     }

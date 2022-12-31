@@ -53,7 +53,6 @@ public class PauseMenu : MonoBehaviour
         }
         if (pause)
         {
-            Debug.Log("pause");
             Time.timeScale = 0;
             Cursor.visible = true;
             // stop player and enemies.
@@ -102,8 +101,11 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        pauseMenu.SetActive(false);
-        settings.SetActive(true);
+        pause = false;
         // resume elements.
+    }
+
+    public void SaveSettings()
+    {
     }
 }
