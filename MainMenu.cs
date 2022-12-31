@@ -17,18 +17,21 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Sprite[] lvlImageClear;
     [SerializeField] private Sprite[] lvlImageBlur;
     [SerializeField] private float startTime = 2f;
+    [SerializeField] private AudioClip cantSound;
 
     private bool rootMenu = true;
     private bool levelSelectMenu = false;
     private bool[] lvlArr = new bool[5];
 
     private SavedLevels savedLevels = new SavedLevels();
+    private AudioSource audioS;
 
     // Start is called before the first frame update
     private void Start()
     {
         // get rewired and be able to use. up/down for nav. Jump for go.
         // maybe make new profile for menu.
+        audioS = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -158,6 +161,8 @@ public class MainMenu : MonoBehaviour
         else
         {
             // can't play
+            Debug.Log("cant play");
+            audioS.PlayOneShot(cantSound);
         }
     }
 
