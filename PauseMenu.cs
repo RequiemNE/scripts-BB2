@@ -11,12 +11,17 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject settingsButton;
     [SerializeField] private GameObject resumeButton;
     [SerializeField] private GameObject mainMenuButton;
+    [SerializeField] private GameObject resolutionDropDown;
+    [SerializeField] private GameObject volumeSlider;
+    [SerializeField] private GameObject saveButton;
 
     public int playerID = 0;
     private Player player;
 
     private bool pauseInput;
     private bool pause = false;
+    private bool rootMenu = false;
+    private bool settingsMenu = false;
 
     // Start is called before the first frame update
     private void Start()
@@ -53,12 +58,22 @@ public class PauseMenu : MonoBehaviour
             // load menu
             // settings false.
             pauseMenu.SetActive(true);
-            settings.SetActive(false);
+            resumeButton.SetActive(true);
+            settingsButton.SetActive(true);
+            mainMenuButton.SetActive(true);
+            settings.SetActive(true);
+            resolutionDropDown.SetActive(false);
+            volumeSlider.SetActive(false);
+            saveButton.SetActive(false);
         }
         else
         {
-            pauseMenu.SetActive(false);
-            settings.SetActive(false);
+            resumeButton.SetActive(false);
+            settingsButton.SetActive(false);
+            mainMenuButton.SetActive(false);
+            resolutionDropDown.SetActive(false);
+            volumeSlider.SetActive(false);
+            saveButton.SetActive(false);
         }
     }
 
@@ -72,8 +87,13 @@ public class PauseMenu : MonoBehaviour
     public void Settings()
     {
         // root false
-        pauseMenu.SetActive(false);
-        settings.SetActive(true);
+        Debug.Log("Hit settings");
+        resumeButton.SetActive(false);
+        mainMenuButton.SetActive(false);
+        resolutionDropDown.SetActive(true);
+        volumeSlider.SetActive(true);
+        saveButton.SetActive(true);
+        settingsButton.SetActive(false);
     }
 
     public void Resume()

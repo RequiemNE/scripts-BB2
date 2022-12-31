@@ -155,6 +155,8 @@ public class MainMenu : MonoBehaviour
 
     public void ClearSave()
     {
+        SaveGame saveGame = gameObject.GetComponent<SaveGame>();
+        saveGame.ClearSave();
         // AYS y/n
         // clear save from script.
     }
