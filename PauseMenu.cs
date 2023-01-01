@@ -15,8 +15,6 @@ public class PauseMenu : MonoBehaviour
 
     private bool pauseInput;
     private bool pause = false;
-    private bool rootMenu = false;
-    private bool settingsMenu = false;
 
     // Start is called before the first frame update
     private void Start()
@@ -53,6 +51,7 @@ public class PauseMenu : MonoBehaviour
             // settings false.
             pauseMenu.SetActive(true);
             resumeButton.SetActive(true);
+            mainMenuButton.SetActive(true);
             AudioListener.pause = true;
         }
         else
@@ -62,6 +61,7 @@ public class PauseMenu : MonoBehaviour
             AudioListener.pause = false;
             pauseMenu.SetActive(false);
             resumeButton.SetActive(false);
+            mainMenuButton.SetActive(false);
         }
     }
 

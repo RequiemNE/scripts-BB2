@@ -23,7 +23,6 @@ public class SaveGame : MonoBehaviour
         {
             string fileContents = File.ReadAllText(saveFile);
             levels = JsonUtility.FromJson<Levels>(fileContents);
-            Debug.Log(levels.l1 + " " + levels.l2);
         }
     }
 
@@ -66,9 +65,6 @@ public class SaveGame : MonoBehaviour
         }
 
         WriteFile();
-
-        //Debug.Log("Level not recognised. Level " + levelNumber +
-        //   "was submitted to Save function in SaveGame.cs");
     }
 
     public void ClearSave()
