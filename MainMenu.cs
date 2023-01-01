@@ -33,6 +33,8 @@ public class MainMenu : MonoBehaviour
         // maybe make new profile for menu.
         audioS = GetComponent<AudioSource>();
         Cursor.visible = true;
+        Time.timeScale = 1;
+        AudioListener.pause = false;
     }
 
     private void Update()
