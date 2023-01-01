@@ -7,13 +7,8 @@ using Rewired;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private GameObject settings;
-    [SerializeField] private GameObject settingsButton;
     [SerializeField] private GameObject resumeButton;
     [SerializeField] private GameObject mainMenuButton;
-    [SerializeField] private GameObject resolutionDropDown;
-    [SerializeField] private GameObject volumeSlider;
-    [SerializeField] private GameObject saveButton;
 
     public int playerID = 0;
     private Player player;
@@ -27,8 +22,6 @@ public class PauseMenu : MonoBehaviour
     private void Start()
     {
         player = ReInput.players.GetPlayer(playerID);
-        pauseMenu.SetActive(false);
-        settings.SetActive(false);
     }
 
     // Update is called once per frame
@@ -60,23 +53,15 @@ public class PauseMenu : MonoBehaviour
             // settings false.
             pauseMenu.SetActive(true);
             resumeButton.SetActive(true);
-            settingsButton.SetActive(true);
-            mainMenuButton.SetActive(true);
-            settings.SetActive(true);
-            resolutionDropDown.SetActive(false);
-            volumeSlider.SetActive(false);
-            saveButton.SetActive(false);
+            AudioListener.pause = true;
         }
         else
         {
             Time.timeScale = 1;
             Cursor.visible = false;
+            AudioListener.pause = false;
+            pauseMenu.SetActive(false);
             resumeButton.SetActive(false);
-            settingsButton.SetActive(false);
-            mainMenuButton.SetActive(false);
-            resolutionDropDown.SetActive(false);
-            volumeSlider.SetActive(false);
-            saveButton.SetActive(false);
         }
     }
 
@@ -87,25 +72,8 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
-    public void Settings()
-    {
-        // root false
-        Debug.Log("Hit settings");
-        resumeButton.SetActive(false);
-        mainMenuButton.SetActive(false);
-        resolutionDropDown.SetActive(true);
-        volumeSlider.SetActive(true);
-        saveButton.SetActive(true);
-        settingsButton.SetActive(false);
-    }
-
     public void Resume()
     {
         pause = false;
-        // resume elements.
-    }
-
-    public void SaveSettings()
-    {
     }
 }
